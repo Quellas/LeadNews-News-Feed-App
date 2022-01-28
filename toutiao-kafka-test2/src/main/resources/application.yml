@@ -1,0 +1,19 @@
+
+spring:
+  kafka:
+    # 配置连接到服务端集群的配置项 ip:port,ip:port
+    bootstrap-servers: 192.168.211.136:9092
+    consumer:
+      #      auto-commit-interval: 100
+      auto-offset-reset: earliest
+      #      enable-auto-commit: true
+
+      # 分组的名称 设置该消费者属于哪一个分组 指定分组名
+      group-id: test-consumer-group2
+      # 默认值即为字符串 设置key的反序列化器
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 默认值即为字符串 设置value的反序列化器
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+server:
+  port: 8081

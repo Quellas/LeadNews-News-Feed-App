@@ -1,0 +1,99 @@
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 9007
+spring:
+  application:
+    name: leadnews-comment
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.211.136:3306/leadnews_comment?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  cloud:
+    nacos:
+      server-addr: 192.168.211.136:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+  data:
+    mongodb:
+      host: 192.168.211.136
+      port: 27017
+      database: leadnews-comment
+#      username: admin
+#      password: t136931283
+# 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
+  type-aliases-package: com.itheima.article.pojo
+  global-config:
+    worker-id: 1 #机器ID
+    datacenter-id: 1 # 数据中心ID
+
+logging:
+  level.com: debug
+
+---
+server:
+  port: 9007
+spring:
+  application:
+    name: leadnews-user
+  profiles: pro
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.211.136:3306/leadnews_comment?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  cloud:
+    nacos:
+      server-addr: 192.168.211.136:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+  data:
+    mongodb:
+      host: 192.168.211.136
+      port: 27017
+      database: leadnews-comment
+# 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
+  type-aliases-package: com.itheima.article.pojo
+  global-config:
+    worker-id: 1 #机器ID
+    datacenter-id: 1 # 数据中心ID
+---
+server:
+  port: 9007
+spring:
+  application:
+    name: leadnews-user
+  profiles: test
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.211.136:3306/leadnews_comment?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  cloud:
+    nacos:
+      server-addr: 192.168.211.136:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+  data:
+    mongodb:
+      host: 192.168.211.136
+      port: 27017
+      database: leadnews-comment
+# 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
+  type-aliases-package: com.itheima.article.pojo
+  global-config:
+    worker-id: 1 #机器ID
+    datacenter-id: 1 # 数据中心ID

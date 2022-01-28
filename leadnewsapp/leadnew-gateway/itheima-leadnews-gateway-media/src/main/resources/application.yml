@@ -1,0 +1,112 @@
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 6002
+spring:
+  application:
+    name: leadnews-media-gateway
+  profiles: dev
+  cloud:
+    nacos:
+      server-addr: 192.168.211.136:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*" #跨域处理 允许所有的域
+            allowedHeaders: "*"
+            allowedMethods: # 支持的方法
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        # fdfs的路由规则
+        - id: dfs
+          uri: lb://leadnews-dfs  # 转发到某一个微服务（使用lb的方式）
+          predicates:
+                              # 当请求来的时候  以 /业务单词/实际的请求路径
+            - Path=/dfs/**  # 指定断言 标识 请求必须符合该条件 才进行转发
+          filters:
+            - StripPrefix= 1  # 去除前缀的过滤器 去除一个路径
+        - id: media  # 自媒体微服务路由规则
+          uri: lb://leadnews-wemedia
+          predicates:
+            - Path=/media/**
+          filters:
+            - StripPrefix= 1
+        - id: admin  # 管理微服务路由规则
+          uri: lb://leadnews-admin
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix= 1
+
+---
+server:
+  port: 6002
+spring:
+  application:
+    name: leadnews-media-gateway
+  profiles: test
+  cloud:
+    nacos:
+      server-addr: 192.168.211.136:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*" #跨域处理 允许所有的域
+            allowedHeaders: "*"
+            allowedMethods: # 支持的方法
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        # fdfs的路由规则
+        - id: dfs
+          uri: lb://leadnews-dfs  # 转发到某一个微服务（使用lb的方式）
+          predicates:
+            # 当请求来的时候  以 /业务单词/实际的请求路径
+            - Path=/dfs/**  # 指定断言 标识 请求必须符合该条件 才进行转发
+          filters:
+            - StripPrefix= 1  # 去除前缀的过滤器 去除一个路径
+---
+server:
+  port: 6002
+spring:
+  application:
+    name: leadnews-media-gateway
+  profiles: pro
+  cloud:
+    nacos:
+      server-addr: 192.168.211.136:8848
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]': # 匹配所有请求
+            allowedOrigins: "*" #跨域处理 允许所有的域
+            allowedHeaders: "*"
+            allowedMethods: # 支持的方法
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        # fdfs的路由规则
+        - id: dfs
+          uri: lb://leadnews-dfs  # 转发到某一个微服务（使用lb的方式）
+          predicates:
+            # 当请求来的时候  以 /业务单词/实际的请求路径
+            - Path=/dfs/**  # 指定断言 标识 请求必须符合该条件 才进行转发
+          filters:
+            - StripPrefix= 1  # 去除前缀的过滤器 去除一个路径

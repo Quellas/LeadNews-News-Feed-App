@@ -1,0 +1,28 @@
+spring:
+  kafka:
+    # 配置连接到服务端集群的配置项 ip:port,ip:port
+    bootstrap-servers: 192.168.211.136:9092
+    consumer:
+      #      auto-commit-interval: 100
+      auto-offset-reset: earliest
+      enable-auto-commit: false # 不开启自动commit(提交offset)
+
+      # 分组的名称 设置该消费者属于哪一个分组 指定分组名
+      group-id: test-consumer-group
+      # 默认值即为字符串 设置key的反序列化器
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      # 默认值即为字符串 设置value的反序列化器
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      batch-size: 16384 # 批处理消息的容量大小 字节
+      buffer-memory: 33554432  # 缓冲区域的内存大小 单位是字节
+      # 指定发送消息的时候的key的序列化器 采用字符串的方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # 重试机制 当发送失败的时候需要再次重试的次数 指定为0 表示不重试
+      retries: 0
+      # 指定发送消息的时候的value的序列化器 采用字符串的方式
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+kafka:
+  group: producer123
+  hosts: 192.168.211.136:9092
